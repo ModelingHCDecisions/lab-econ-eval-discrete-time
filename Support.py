@@ -88,57 +88,54 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
     )
 
 
-def print_comparative_outcomes(simOutputs_mono, simOutputs_combo):
+def print_comparative_outcomes(sim_outcomes_mono, sim_outcomes_combo):
     """ prints average increase in survival time, discounted cost, and discounted utility
     under combination therapy compared to mono therapy
-    :param simOutputs_mono: output of a cohort simulated under mono therapy
-    :param simOutputs_combo: output of a cohort simulated under combination therapy
+    :param sim_outcomes_mono: outcomes of a cohort simulated under mono therapy
+    :param sim_outcomes_combo: outcomes of a cohort simulated under combination therapy
     """
 
-    # increase in survival time under combination therapy with respect to mono therapy
+    # increase in mean survival time under combination therapy with respect to mono therapy
     increase_survival_time = Stat.DifferenceStatIndp(
-        name='Increase in survival time',
-        x=simOutputs_combo.get_survival_times(),
-        y_ref=simOutputs_mono.get_survival_times())
+        name='Increase in mean survival time',
+        x=sim_outcomes_combo.survivalTimes,
+        y_ref=sim_outcomes_mono.survivalTimes)
 
     # estimate and CI
-    estimate_CI = F.format_estimate_interval(
-        estimate=increase_survival_time.get_mean(),
-        interval=increase_survival_time.get_t_CI(alpha=D.ALPHA),
-        deci=2)
-    print("Average increase in survival time "
-          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    estimate_CI = increase_survival_time.get_formatted_mean_and_interval(interval_type='c',
+                                                                         alpha=D.ALPHA,
+                                                                         deci=2)
+    print("Increase in mean survival time and {:.{prec}%} confidence interval:"
+          .format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
-    # increase in discounted total cost under combination therapy with respect to mono therapy
+    # increase in mean discounted cost under combination therapy with respect to mono therapy
     increase_discounted_cost = Stat.DifferenceStatIndp(
-        name='Increase in discounted cost',
-        x=simOutputs_combo.get_costs(),
-        y_ref=simOutputs_mono.get_costs())
+        name='Increase in mean discounted cost',
+        x=sim_outcomes_combo.costs,
+        y_ref=sim_outcomes_mono.costs)
 
     # estimate and CI
-    estimate_CI = F.format_estimate_interval(
-        estimate=increase_discounted_cost.get_mean(),
-        interval=increase_discounted_cost.get_t_CI(alpha=D.ALPHA),
-        deci=0,
-        form=F.FormatNumber.CURRENCY)
-    print("Average increase in discounted cost "
-          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    estimate_CI = increase_discounted_cost.get_formatted_mean_and_interval(interval_type='c',
+                                                                           alpha=D.ALPHA,
+                                                                           deci=2,
+                                                                           form=',')
+    print("Increase in mean discounted cost and {:.{prec}%} confidence interval:"
+          .format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
-    # increase in discounted total utility under combination therapy with respect to mono therapy
+    # increase in mean discounted utility under combination therapy with respect to mono therapy
     increase_discounted_utility = Stat.DifferenceStatIndp(
-        name='Increase in discounted cost',
-        x=simOutputs_combo.get_utilities(),
-        y_ref=simOutputs_mono.get_utilities())
+        name='Increase in mean discounted utility',
+        x=sim_outcomes_combo.utilities,
+        y_ref=sim_outcomes_mono.utilities)
 
     # estimate and CI
-    estimate_CI = F.format_estimate_interval(
-        estimate=increase_discounted_utility.get_mean(),
-        interval=increase_discounted_utility.get_t_CI(alpha=D.ALPHA),
-        deci=2)
-    print("Average increase in discounted utility "
-          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    estimate_CI = increase_discounted_utility.get_formatted_mean_and_interval(interval_type='c',
+                                                                              alpha=D.ALPHA,
+                                                                              deci=2)
+    print("Increase in mean discounted utility and {:.{prec}%} confidence interval:"
+          .format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
 
