@@ -139,22 +139,22 @@ def print_comparative_outcomes(sim_outcomes_mono, sim_outcomes_combo):
           estimate_CI)
 
 
-def report_CEA_CBA(simOutputs_mono, simOutputs_combo):
+def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     """ performs cost-effectiveness and cost-benefit analyses
-    :param simOutputs_mono: output of a cohort simulated under mono therapy
-    :param simOutputs_combo: output of a cohort simulated under combination therapy
+    :param sim_outcomes_mono: outcomes of a cohort simulated under mono therapy
+    :param sim_outcomes_combo: outcomes of a cohort simulated under combination therapy
     """
 
     # define two strategies
     mono_therapy_strategy = Econ.Strategy(
         name='Mono Therapy',
-        cost_obs=simOutputs_mono.get_costs(),
-        effect_obs=simOutputs_mono.get_utilities()
+        cost_obs=sim_outcomes_mono.costs,
+        effect_obs=sim_outcomes_mono.utilities
     )
     combo_therapy_strategy = Econ.Strategy(
         name='Combination Therapy',
-        cost_obs=simOutputs_combo.get_costs(),
-        effect_obs=simOutputs_combo.get_utilities()
+        cost_obs=sim_outcomes_combo.costs,
+        effect_obs=sim_outcomes_combo.utilities
     )
 
     # do CEA
@@ -175,7 +175,7 @@ def report_CEA_CBA(simOutputs_mono, simOutputs_combo):
     )
     # report the CE table
     CEA.build_CE_table(
-        interval=Econ.Interval.CONFIDENCE,
+        interval_type='c',
         alpha=D.ALPHA,
         cost_digits=0,
         effect_digits=2,
@@ -194,7 +194,7 @@ def report_CEA_CBA(simOutputs_mono, simOutputs_combo):
         title='Cost-Benefit Analysis',
         x_label='Willingness-to-pay for one additional QALY ($)',
         y_label='Incremental Net Monetary Benefit ($)',
-        interval=Econ.Interval.CONFIDENCE,
+        interval_type='c',
         show_legend=True,
         figure_size=6
     )

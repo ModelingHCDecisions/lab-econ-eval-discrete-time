@@ -35,5 +35,6 @@ Support.plot_survival_curves_and_histograms(sim_outcomes_mono=cohort_mono.cohort
 Support.print_comparative_outcomes(sim_outcomes_mono=cohort_mono.cohortOutcomes,
                                    sim_outcomes_combo=cohort_combo.cohortOutcomes)
 
-# # report the CEA results
-# Support.report_CEA_CBA(simOutputs_mono, simOutputs_combo)
+# report the CEA results
+Support.report_CEA_CBA(sim_outcomes_mono=cohort_mono.cohortOutcomes,
+                       sim_outcomes_combo=cohort_combo.cohortOutcomes)
