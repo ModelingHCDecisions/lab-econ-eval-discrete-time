@@ -1,51 +1,51 @@
-import InputData as Settings
-import scr.FormatFunctions as F
-import scr.SamplePathClasses as PathCls
-import scr.FigureSupport as Figs
-import scr.StatisticalClasses as Stat
-import scr.EconEvalClasses as Econ
+import InputData as D
+import SimPy.FormatFunctions as F
+import SimPy.SamplePathClasses as PathCls
+import SimPy.FigureSupport as Figs
+import SimPy.StatisticalClasses as Stat
+import SimPy.EconEvalClasses as Econ
 
 
-def print_outcomes(simOutput, therapy_name):
+def print_outcomes(sim_outcomes, therapy_name):
     """ prints the outcomes of a simulated cohort
-    :param simOutput: output of a simulated cohort
+    :param sim_outcomes: outcomes of a simulated cohort
     :param therapy_name: the name of the selected therapy
     """
-    # mean and confidence interval text of patient survival time
-    survival_mean_CI_text = F.format_estimate_interval(
-        estimate=simOutput.get_sumStat_survival_times().get_mean(),
-        interval=simOutput.get_sumStat_survival_times().get_t_CI(alpha=Settings.ALPHA),
-        deci=2)
+    # mean and confidence interval of patient survival time
+    survival_mean_CI_text = sim_outcomes.statSurvivalTime\
+        .get_formatted_mean_and_interval(interval_type='c',
+                                         alpha=D.ALPHA,
+                                         deci=2)
 
-    # mean and confidence interval text of time to AIDS
-    time_to_HIV_death_CI_text = F.format_estimate_interval(
-        estimate=simOutput.get_sumStat_time_to_AIDS().get_mean(),
-        interval=simOutput.get_sumStat_time_to_AIDS().get_t_CI(alpha=Settings.ALPHA),
-        deci=2)
-
-    # mean and confidence interval text of discounted total cost
-    cost_mean_CI_text = F.format_estimate_interval(
-        estimate=simOutput.get_sumStat_discounted_cost().get_mean(),
-        interval=simOutput.get_sumStat_discounted_cost().get_t_CI(alpha=Settings.ALPHA),
-        deci=0,
-        form=F.FormatNumber.CURRENCY)
-
-    # mean and confidence interval text of discounted total utility
-    utility_mean_CI_text = F.format_estimate_interval(
-        estimate=simOutput.get_sumStat_discounted_utility().get_mean(),
-        interval=simOutput.get_sumStat_discounted_utility().get_t_CI(alpha=Settings.ALPHA),
-        deci=2)
+    # # mean and confidence interval text of time to AIDS
+    # time_to_HIV_death_CI_text = F.format_estimate_interval(
+    #     estimate=sim_outcomes.get_sumStat_time_to_AIDS().get_mean(),
+    #     interval=sim_outcomes.get_sumStat_time_to_AIDS().get_t_CI(alpha=D.ALPHA),
+    #     deci=2)
+    #
+    # # mean and confidence interval text of discounted total cost
+    # cost_mean_CI_text = F.format_estimate_interval(
+    #     estimate=sim_outcomes.get_sumStat_discounted_cost().get_mean(),
+    #     interval=sim_outcomes.get_sumStat_discounted_cost().get_t_CI(alpha=D.ALPHA),
+    #     deci=0,
+    #     form=F.FormatNumber.CURRENCY)
+    #
+    # # mean and confidence interval text of discounted total utility
+    # utility_mean_CI_text = F.format_estimate_interval(
+    #     estimate=sim_outcomes.get_sumStat_discounted_utility().get_mean(),
+    #     interval=sim_outcomes.get_sumStat_discounted_utility().get_t_CI(alpha=D.ALPHA),
+    #     deci=2)
 
     # print outcomes
     print(therapy_name)
-    print("  Estimate of mean survival time and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
+    print("  Estimate of mean survival time and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
           survival_mean_CI_text)
-    print("  Estimate of mean time to AIDS and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
-          time_to_HIV_death_CI_text)
-    print("  Estimate of discounted cost and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
-          cost_mean_CI_text)
-    print("  Estimate of discounted utility and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
-          utility_mean_CI_text)
+    # print("  Estimate of mean time to AIDS and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    #       time_to_HIV_death_CI_text)
+    # print("  Estimate of discounted cost and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    #       cost_mean_CI_text)
+    # print("  Estimate of discounted utility and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    #       utility_mean_CI_text)
     print("")
 
 
@@ -104,10 +104,10 @@ def print_comparative_outcomes(simOutputs_mono, simOutputs_combo):
     # estimate and CI
     estimate_CI = F.format_estimate_interval(
         estimate=increase_survival_time.get_mean(),
-        interval=increase_survival_time.get_t_CI(alpha=Settings.ALPHA),
+        interval=increase_survival_time.get_t_CI(alpha=D.ALPHA),
         deci=2)
     print("Average increase in survival time "
-          "and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
+          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
     # increase in discounted total cost under combination therapy with respect to mono therapy
@@ -119,11 +119,11 @@ def print_comparative_outcomes(simOutputs_mono, simOutputs_combo):
     # estimate and CI
     estimate_CI = F.format_estimate_interval(
         estimate=increase_discounted_cost.get_mean(),
-        interval=increase_discounted_cost.get_t_CI(alpha=Settings.ALPHA),
+        interval=increase_discounted_cost.get_t_CI(alpha=D.ALPHA),
         deci=0,
         form=F.FormatNumber.CURRENCY)
     print("Average increase in discounted cost "
-          "and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
+          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
     # increase in discounted total utility under combination therapy with respect to mono therapy
@@ -135,10 +135,10 @@ def print_comparative_outcomes(simOutputs_mono, simOutputs_combo):
     # estimate and CI
     estimate_CI = F.format_estimate_interval(
         estimate=increase_discounted_utility.get_mean(),
-        interval=increase_discounted_utility.get_t_CI(alpha=Settings.ALPHA),
+        interval=increase_discounted_utility.get_t_CI(alpha=D.ALPHA),
         deci=2)
     print("Average increase in discounted utility "
-          "and {:.{prec}%} confidence interval:".format(1 - Settings.ALPHA, prec=0),
+          "and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
           estimate_CI)
 
 
@@ -179,7 +179,7 @@ def report_CEA_CBA(simOutputs_mono, simOutputs_combo):
     # report the CE table
     CEA.build_CE_table(
         interval=Econ.Interval.CONFIDENCE,
-        alpha=Settings.ALPHA,
+        alpha=D.ALPHA,
         cost_digits=0,
         effect_digits=2,
         icer_digits=2,

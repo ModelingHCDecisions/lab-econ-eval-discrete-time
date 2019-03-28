@@ -2,11 +2,13 @@ import MarkovModelClasses as Cls
 import SimPy.SamplePathClasses as PathCls
 import SimPy.FigureSupport as Fig
 import InputData as D
+import ParameterClasses as P
+import Support as Support
 
 # create a cohort
 myCohort = Cls.Cohort(id=1,
                       pop_size=D.POP_SIZE,
-                      transition_matrix=D.get_trans_prob_matrix(D.TRANS_MATRIX))
+                      parameters=P.ParametersFixed(therapy=P.Therapies.MONO))
 
 # simulate the cohort over the specified time steps
 myCohort.simulate(n_time_steps=D.SIM_TIME_STEPS)
@@ -26,12 +28,5 @@ Fig.graph_histogram(
     y_label='Count',
     bin_width=1)
 
-# print the patient survival time
-print('Mean survival time (years):',
-      myCohort.cohortOutcomes.meanSurvivalTime)
-# print mean time to AIDS
-print('Mean time until AIDS (years)',
-      myCohort.cohortOutcomes.meanTimeToAIDS)
-
 # print the outcomes of this simulated cohort
-SupportMarkov.print_outcomes(simOutputs, 'Mono therapy:')
+Support.print_outcomes(myCohort.cohortOutcomes, 'Mono therapy:')

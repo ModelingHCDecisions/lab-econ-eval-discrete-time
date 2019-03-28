@@ -3,7 +3,7 @@ import numpy as np
 import InputData as Data
 
 
-class HealthStats(Enum):
+class HealthStates(Enum):
     """ health states of patients with HIV """
     CD4_200to500 = 0
     CD4_200 = 1
@@ -24,7 +24,7 @@ class ParametersFixed:
         self.therapy = therapy
 
         # initial health state
-        self.initialHealthState = HealthStats.CD4_200to500
+        self.initialHealthState = HealthStates.CD4_200to500
 
         # annual treatment cost
         if self.therapy == Therapies.MONO:
@@ -33,34 +33,23 @@ class ParametersFixed:
             self.annualTreatmentCost = Data.Zidovudine_COST + Data.Lamivudine_COST
 
         # transition probability matrix of the selected therapy
-        self.prob_matrix = []
+        self.probMatrix = []
 
         # calculate transition probabilities between hiv states
-        self.prob_matrix = get_prob_matrix(trans_matrix=Data.TRANS_MATRIX)
+        self.probMatrix = get_prob_matrix(trans_matrix=Data.TRANS_MATRIX)
 
         # update the transition probability matrix if combination therapy is being used
         if self.therapy == Therapies.COMBO:
-            # treatment relative risk
-            self._treatmentRR = Data.TREATMENT_RR
             # calculate transition probability matrix for the combination therapy
-            self.prob_matrix = get_prob_matrix_combo(
-                prob_matrix_mono=self.prob_matrix, combo_rr=Data.TREATMENT_RR)
+            self.probMatrix = get_prob_matrix_combo(prob_matrix_mono=self.probMatrix,
+                                                    combo_rr=Data.TREATMENT_RR)
 
         # annual state costs and utilities
         self.annualStateCosts = Data.ANNUAL_STATE_COST
         self.annualStateUtilities = Data.ANNUAL_STATE_UTILITY
 
-    def get_annual_state_cost(self, state):
-        if state == HealthStats.HIV_DEATH:
-            return 0
-        else:
-            return self.annualStateCosts[state.value]
-
-    def get_annual_state_utility(self, state):
-        if state == HealthStats.HIV_DEATH:
-            return 0
-        else:
-            return self.annualStateUtilities[state.value]
+        # discount rate
+        self.discountRate = Data.DISCOUNT
 
 
 def get_prob_matrix(trans_matrix):
@@ -79,11 +68,6 @@ def get_prob_matrix(trans_matrix):
         # add this row of transition probabilities to the transition probability matrix
         trans_prob_matrix.append(prob_row)
 
-    # add the last row for the Death state
-    row = [0]*len(HealthStats)
-    row[-1] = 1
-    trans_prob_matrix.append(row)
-
     return trans_prob_matrix
 
 
@@ -100,20 +84,20 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
 
     # populate the combo matrix
     # calculate the effect of combo-therapy on non-diagonal elements
-    for s in range(len(HealthStats)):
-        for next_s in range(s + 1, len(HealthStats)):
+    for s in range(len(matrix_combo)):
+        for next_s in range(s + 1, len(HealthStates)):
             matrix_combo[s][next_s] = combo_rr * prob_matrix_mono[s][next_s]
 
     # diagonal elements are calculated to make sure the sum of each row is 1
-    for s in range(len(HealthStats)):
+    for s in range(len(matrix_combo)):
         matrix_combo[s][s] = 1 - sum(matrix_combo[s][s+1:])
 
     return matrix_combo
 
 
-# tests
-matrix_mono = get_prob_matrix(Data.TRANS_MATRIX)
-matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
-
-print(matrix_mono)
-print(matrix_combo)
+# # tests
+# matrix_mono = get_prob_matrix(Data.TRANS_MATRIX)
+# matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
+#
+# print(matrix_mono)
+# print(matrix_combo)
