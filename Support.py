@@ -49,16 +49,16 @@ def print_outcomes(sim_outcomes, therapy_name):
     print("")
 
 
-def draw_survival_curves_and_histograms(simOutputs_mono, simOutputs_combo):
+def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
     """ draws the survival curves and the histograms of time until HIV deaths
-    :param simOutputs_mono: output of a cohort simulated under mono therapy
-    :param simOutputs_combo: output of a cohort simulated under combination therapy
+    :param sim_outcomes_mono: outcomes of a cohort simulated under mono therapy
+    :param sim_outcomes_combo: outcomes of a cohort simulated under combination therapy
     """
 
     # get survival curves of both treatments
     survival_curves = [
-        simOutputs_mono.get_survival_curve(),
-        simOutputs_combo.get_survival_curve()
+        sim_outcomes_mono.nLivingPatients,
+        sim_outcomes_combo.nLivingPatients
     ]
 
     # graph survival curve
@@ -72,8 +72,8 @@ def draw_survival_curves_and_histograms(simOutputs_mono, simOutputs_combo):
 
     # histograms of survival times
     set_of_survival_times = [
-        simOutputs_mono.get_survival_times(),
-        simOutputs_combo.get_survival_times()
+        sim_outcomes_mono.survivalTimes,
+        sim_outcomes_combo.survivalTimes
     ]
 
     # graph histograms

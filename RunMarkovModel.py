@@ -1,9 +1,9 @@
-import MarkovModelClasses as Cls
-import SimPy.SamplePathClasses as PathCls
-import SimPy.FigureSupport as Fig
 import InputData as D
 import ParameterClasses as P
+import MarkovModelClasses as Cls
 import Support as Support
+import SimPy.SamplePathClasses as PathCls
+import SimPy.FigureSupport as Fig
 
 # selected therapy
 therapy = P.Therapies.MONO
