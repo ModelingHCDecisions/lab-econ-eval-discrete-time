@@ -1,9 +1,9 @@
 import InputData as D
-import SimPy.FormatFunctions as F
 import SimPy.SamplePathClasses as PathCls
 import SimPy.FigureSupport as Figs
 import SimPy.StatisticalClasses as Stat
 import SimPy.EconEvalClasses as Econ
+import matplotlib.pyplot as plt
 
 
 def print_outcomes(sim_outcomes, therapy_name):
@@ -149,12 +149,14 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     mono_therapy_strategy = Econ.Strategy(
         name='Mono Therapy',
         cost_obs=sim_outcomes_mono.costs,
-        effect_obs=sim_outcomes_mono.utilities
+        effect_obs=sim_outcomes_mono.utilities,
+        color='green'
     )
     combo_therapy_strategy = Econ.Strategy(
         name='Combination Therapy',
         cost_obs=sim_outcomes_combo.costs,
-        effect_obs=sim_outcomes_combo.utilities
+        effect_obs=sim_outcomes_combo.utilities,
+        color='blue'
     )
 
     # do CEA
@@ -162,25 +164,17 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         strategies=[mono_therapy_strategy, combo_therapy_strategy],
         if_paired=False
     )
-    # show the CE plane
-    CEA.show_CE_plane(
-        title='Cost-Effectiveness Analysis',
-        x_label='Additional discounted utility',
-        y_label='Additional discounted cost',
-        show_names=True,
-        show_clouds=True,
-        show_legend=True,
-        figure_size=6,
-        transparency=0.3
-    )
+
+    # show the cost-effectiveness plane
+    show_ce_figure(CEA=CEA)
+
     # report the CE table
     CEA.build_CE_table(
         interval_type='c',
         alpha=D.ALPHA,
         cost_digits=0,
         effect_digits=2,
-        icer_digits=2,
-    )
+        icer_digits=2)
 
     # CBA
     NBA = Econ.CBA(
@@ -198,3 +192,49 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         show_legend=True,
         figure_size=6
     )
+
+
+def show_ce_figure(CEA):
+    # create a cost-effectiveness plot
+    plt.figure(figsize=(6, 6))
+
+    # find the frontier (x, y)'s
+    frontier_utilities = []
+    frontier_costs = []
+    for s in CEA.get_shifted_strategies_on_frontier():
+        frontier_utilities.append(s.aveEffect)
+        frontier_costs.append(s.aveCost)
+
+    # draw the frontier
+    plt.plot(frontier_utilities, frontier_costs,
+             c='k',  # color
+             alpha=0.6,  # transparency
+             linewidth=2,  # line width
+             label="Frontier")  # label to show in the legend
+
+    # add the clouds
+    for s in CEA.get_shifted_strategies():
+        # add the center of the cloud
+        plt.plot(s.aveEffect, s.aveCost,
+                 c='k',  # color
+                 alpha=1,  # transparency
+                 linewidth=2,  # line width
+                 marker='x',  # markers
+                 markersize=12,  # marker size
+                 markeredgewidth=2)  # marker edge width
+        # add the cloud
+        plt.scatter(s.effectObs, s.costObs,
+                    c=s.color,  # color of dots
+                    alpha=0.15,  # transparency of dots
+                    s=25,  # size of dots
+                    label=s.name)  # name to show in the legend
+
+    plt.legend()        # show the legend
+    plt.axhline(y=0, c='k', linewidth=0.5)  # horizontal line at y = 0
+    plt.axvline(x=0, c='k', linewidth=0.5)  # vertical line at x = 0
+    plt.xlim([-5, 20])              # x-axis range
+    plt.ylim([-100000, 350000])     # y-axis range
+    plt.title('Cost-Effectiveness Analysis')
+    plt.xlabel('Additional discounted utility')
+    plt.ylabel('Additional discounted cost')
+
