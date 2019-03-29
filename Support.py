@@ -190,7 +190,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         y_label='Incremental Net Monetary Benefit ($)',
         interval_type='c',
         show_legend=True,
-        figure_size=6
+        figure_size=(6, 5)
     )
 
 
