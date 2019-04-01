@@ -182,7 +182,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         if_paired=False
     )
     # show the net monetary benefit figure
-    NBA.graph_deltaNMB_lines(
+    NBA.graph_incremental_NMBs(
         min_wtp=0,
         max_wtp=50000,
         title='Cost-Benefit Analysis',
@@ -196,7 +196,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
 
 def show_ce_figure(CEA):
     # create a cost-effectiveness plot
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(5, 5))
 
     # find the frontier (x, y)'s
     frontier_utilities = []
@@ -205,36 +205,31 @@ def show_ce_figure(CEA):
         frontier_utilities.append(s.aveEffect)
         frontier_costs.append(s.aveCost)
 
-    # draw the frontier
+    # draw the frontier line
     plt.plot(frontier_utilities, frontier_costs,
              c='k',  # color
              alpha=0.6,  # transparency
              linewidth=2,  # line width
              label="Frontier")  # label to show in the legend
 
-    # add the clouds
+    # add the strategies
     for s in CEA.get_shifted_strategies():
         # add the center of the cloud
-        plt.plot(s.aveEffect, s.aveCost,
-                 c='k',  # color
-                 alpha=1,  # transparency
-                 linewidth=2,  # line width
-                 marker='x',  # markers
-                 markersize=12,  # marker size
-                 markeredgewidth=2)  # marker edge width
-        # add the cloud
-        plt.scatter(s.effectObs, s.costObs,
-                    c=s.color,  # color of dots
-                    alpha=0.15,  # transparency of dots
-                    s=25,  # size of dots
-                    label=s.name)  # name to show in the legend
+        plt.scatter(s.aveEffect, s.aveCost,
+                    c=s.color,      # color
+                    alpha=1,        # transparency
+                    marker='o',     # markers
+                    s=100,          # marker size
+                    label=s.name    # name to show in the legend
+                    )
 
     plt.legend()        # show the legend
     plt.axhline(y=0, c='k', linewidth=0.5)  # horizontal line at y = 0
     plt.axvline(x=0, c='k', linewidth=0.5)  # vertical line at x = 0
-    plt.xlim([-5, 20])              # x-axis range
-    plt.ylim([-100000, 350000])     # y-axis range
+    plt.xlim([-2.5, 10])              # x-axis range
+    plt.ylim([-50000, 200000])     # y-axis range
     plt.title('Cost-Effectiveness Analysis')
     plt.xlabel('Additional discounted utility')
     plt.ylabel('Additional discounted cost')
+    plt.show()
 
