@@ -36,7 +36,7 @@ class ParametersFixed:
         self.probMatrix = []
 
         # calculate transition probabilities between hiv states
-        self.probMatrix = get_prob_matrix(trans_matrix=Data.TRANS_MATRIX)
+        self.probMatrix = get_prob_matrix_mono(trans_matrix=Data.TRANS_MATRIX)
 
         # update the transition probability matrix if combination therapy is being used
         if self.therapy == Therapies.COMBO:
@@ -52,7 +52,7 @@ class ParametersFixed:
         self.discountRate = Data.DISCOUNT
 
 
-def get_prob_matrix(trans_matrix):
+def get_prob_matrix_mono(trans_matrix):
     """
     :param trans_matrix: transition matrix containing counts of transitions between states
     :return: transition probability matrix
@@ -96,7 +96,7 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
 
 
 # # tests
-# matrix_mono = get_prob_matrix(Data.TRANS_MATRIX)
+# matrix_mono = get_prob_matrix_mono(Data.TRANS_MATRIX)
 # matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
 #
 # print(matrix_mono)

@@ -45,7 +45,7 @@ class PatientStateMonitor:
     """ to update patient outcomes (years survived, cost, etc.) throughout the simulation """
     def __init__(self, parameters):
 
-        self.currentState = parameters.initialHealthState   # current health state
+        self.currentState = parameters.initialHealthState   # initial health state
         self.survivalTime = None      # survival time
         self.timeToAIDS = None        # time to develop AIDS
         self.ifDevelopedAIDS = False  # if the patient developed AIDS
@@ -75,7 +75,7 @@ class PatientStateMonitor:
         # update cost and utility
         self.costUtilityMonitor.update(k=time_step,
                                        current_state=self.currentState,
-                                       next_state= new_state)
+                                       next_state=new_state)
 
         # update current health state
         self.currentState = new_state
@@ -172,7 +172,7 @@ class CohortOutcomes:
 
         self.statSurvivalTime = None    # summary statistics for survival time
         self.statTimeToAIDS = None      # summary statistics for time to AIDS
-        self.statCost = None             # summary statistics for discounted cost
+        self.statCost = None            # summary statistics for discounted cost
         self.statUtility = None         # summary statistics for discounted utility
 
     def extract_outcomes(self, simulated_patients):
