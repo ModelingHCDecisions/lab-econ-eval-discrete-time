@@ -115,7 +115,7 @@ class PatientCostUtilityMonitor:
 
         # add the cost of treatment
         # if HIV death will occur, add the cost for half-year of treatment
-        if next_state in [P.HealthStates.HIV_DEATH]:
+        if next_state == P.HealthStates.HIV_DEATH:
             cost += 0.5 * self.params.annualTreatmentCost
         else:
             cost += 1 * self.params.annualTreatmentCost
