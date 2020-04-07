@@ -167,7 +167,11 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     )
 
     # plot cost-effectiveness figure
-    CEA.plot_CE_plane()
+    CEA.plot_CE_plane(
+        title='Cost-Effectiveness Analysi',
+        x_label='Additional QALYs',
+        y_label='Additional Cost'
+    )
 
     # report the CE table
     CEA.build_CE_table(
@@ -186,7 +190,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     # show the net monetary benefit figure
     NBA.plot_incremental_nmbs(
         title='Cost-Benefit Analysis',
-        x_label='Willingness-to-pay for one additional QALY ($)',
+        x_label='Willingness-to-pay per QALY ($)',
         y_label='Incremental Net Monetary Benefit ($)',
         interval_type='c',
         show_legend=True,
