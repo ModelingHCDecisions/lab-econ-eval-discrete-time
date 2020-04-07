@@ -1,8 +1,8 @@
 import InputData as D
 import SimPy.SamplePathClasses as PathCls
-import SimPy.FigureSupport as Figs
+import SimPy.Plots.Histogram as Hist
 import SimPy.StatisticalClasses as Stat
-import SimPy.EconEvalClasses as Econ
+import SimPy.EconEval as Econ
 import matplotlib.pyplot as plt
 
 
@@ -77,7 +77,7 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
     ]
 
     # graph histograms
-    Figs.graph_histograms(
+    Hist.graph_histograms(
         data_sets=set_of_survival_times,
         title='Histogram of patient survival time',
         x_label='Survival time (year)',

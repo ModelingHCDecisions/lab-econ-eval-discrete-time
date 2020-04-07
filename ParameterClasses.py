@@ -3,14 +3,6 @@ import numpy as np
 import InputData as Data
 
 
-class HealthStates(Enum):
-    """ health states of patients with HIV """
-    CD4_200to500 = 0
-    CD4_200 = 1
-    AIDS = 2
-    HIV_DEATH = 3
-
-
 class Therapies(Enum):
     """ mono vs. combination therapy """
     MONO = 0
@@ -24,7 +16,7 @@ class ParametersFixed:
         self.therapy = therapy
 
         # initial health state
-        self.initialHealthState = HealthStates.CD4_200to500
+        self.initialHealthState = Data.HealthStates.CD4_200to500
 
         # annual treatment cost
         if self.therapy == Therapies.MONO:
@@ -87,7 +79,7 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
     # populate the combo matrix
     # calculate the effect of combo-therapy on non-diagonal elements
     for s in range(len(matrix_combo)):
-        for next_s in range(s + 1, len(HealthStates)):
+        for next_s in range(s + 1, len(Data.HealthStates)):
             matrix_combo[s][next_s] = combo_rr * prob_matrix_mono[s][next_s]
 
     # diagonal elements are calculated to make sure the sum of each row is 1
