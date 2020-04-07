@@ -3,7 +3,6 @@ import SimPy.Plots.SamplePaths as Path
 import SimPy.Plots.Histogram as Hist
 import SimPy.StatisticalClasses as Stat
 import SimPy.EconEval as Econ
-import matplotlib.pyplot as plt
 
 
 def print_outcomes(sim_outcomes, therapy_name):
@@ -67,7 +66,8 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
         title='Survival curve',
         x_label='Simulation time step (year)',
         y_label='Number of alive patients',
-        legends=['Mono Therapy', 'Combination Therapy']
+        legends=['Mono Therapy', 'Combination Therapy'],
+        color_codes=['green', 'blue']
     )
 
     # histograms of survival times
@@ -84,7 +84,8 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
         y_label='Counts',
         bin_width=1,
         legends=['Mono Therapy', 'Combination Therapy'],
-        transparency=0.6
+        color_codes=['green', 'blue'],
+        transparency=0.5
     )
 
 
@@ -168,7 +169,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
 
     # plot cost-effectiveness figure
     CEA.plot_CE_plane(
-        title='Cost-Effectiveness Analysi',
+        title='Cost-Effectiveness Analysis',
         x_label='Additional QALYs',
         y_label='Additional Cost'
     )
