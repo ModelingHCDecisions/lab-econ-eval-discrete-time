@@ -1,4 +1,3 @@
-import ParameterClasses as P
 from InputData import HealthStates
 import SimPy.RandomVariantGenerators as RVGs
 import SimPy.SamplePathClasses as Path
