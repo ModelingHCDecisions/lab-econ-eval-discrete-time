@@ -1,9 +1,10 @@
+import numpy as np
+
+import SimPy.Markov as Markov
+import SimPy.Plots.SamplePaths as Path
 from InputData import HealthStates
-import SimPy.RandomVariantGenerators as RVGs
-import SimPy.SamplePathClasses as Path
 import SimPy.EconEval as Econ
-import SimPy.StatisticalClasses as Stat
-import SimPy.MarkovClasses as Markov
+import SimPy.Statistics as Stat
 
 
 class Patient:
@@ -20,7 +21,7 @@ class Patient:
         """ simulate the patient over the specified simulation length """
 
         # random number generator
-        rng = RVGs.RNG(seed=self.id)
+        rng = np.random.RandomState(seed=self.id)
         # jump process
         markov_jump = Markov.MarkovJumpProcess(transition_prob_matrix=self.params.probMatrix)
 
@@ -191,10 +192,14 @@ class CohortOutcomes:
             self.utilities.append(patient.stateMonitor.costUtilityMonitor.totalDiscountedUtility)
 
         # summary statistics
-        self.statSurvivalTime = Stat.SummaryStat('Survival time', self.survivalTimes)
-        self.statTimeToAIDS = Stat.SummaryStat('Time until AIDS', self.timesToAIDS)
-        self.statCost = Stat.SummaryStat('Discounted cost', self.costs)
-        self.statUtility = Stat.SummaryStat('Discounted utility', self.utilities)
+        self.statSurvivalTime = Stat.SummaryStat(
+            name='Survival time', data=self.survivalTimes)
+        self.statTimeToAIDS = Stat.SummaryStat(
+            name='Time until AIDS', data=self.timesToAIDS)
+        self.statCost = Stat.SummaryStat(
+            name='Discounted cost', data=self.costs)
+        self.statUtility = Stat.SummaryStat(
+            name='Discounted utility', data=self.utilities)
 
         # survival curve
         self.nLivingPatients = Path.PrevalencePathBatchUpdate(
