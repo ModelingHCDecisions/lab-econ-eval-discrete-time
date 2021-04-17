@@ -49,7 +49,6 @@ class PatientStateMonitor:
         self.currentState = parameters.initialHealthState   # initial health state
         self.survivalTime = None      # survival time
         self.timeToAIDS = None        # time to develop AIDS
-        self.ifDevelopedAIDS = False  # if the patient developed AIDS
         # patient's cost and utility monitor
         self.costUtilityMonitor = PatientCostUtilityMonitor(parameters=parameters)
 
@@ -66,7 +65,6 @@ class PatientStateMonitor:
 
         # update time until AIDS
         if self.currentState != HealthStates.AIDS and new_state == HealthStates.AIDS:
-            self.ifDevelopedAIDS = True
             self.timeToAIDS = time_step + 0.5  # corrected for the half-cycle effect
 
         # update cost and utility
@@ -185,7 +183,7 @@ class CohortOutcomes:
             if patient.stateMonitor.survivalTime is not None:
                 self.survivalTimes.append(patient.stateMonitor.survivalTime)
             # time until AIDS
-            if patient.stateMonitor.ifDevelopedAIDS:
+            if patient.stateMonitor.timeToAIDS is not None:
                 self.timesToAIDS.append(patient.stateMonitor.timeToAIDS)
             # discounted cost and discounted utility
             self.costs.append(patient.stateMonitor.costUtilityMonitor.totalDiscountedCost)
