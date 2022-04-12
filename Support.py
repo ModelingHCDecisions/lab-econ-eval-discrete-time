@@ -172,6 +172,8 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         title='Cost-Effectiveness Analysis',
         x_label='Additional QALYs',
         y_label='Additional Cost',
+        x_range=(-1, 5),
+        y_range=(-10000, 90000),
         interval_type='c'  # to show confidence intervals for cost and effect of each strategy
     )
 
