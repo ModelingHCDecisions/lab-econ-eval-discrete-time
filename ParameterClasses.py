@@ -81,7 +81,7 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
     # populate the combo matrix
     # calculate the effect of combo-therapy on non-diagonal elements
     for s in range(len(matrix_combo)):
-        for next_s in range(s + 1, len(Data.HealthStates)):
+        for next_s in range(s + 1, len(prob_matrix_mono[s])):
             matrix_combo[s][next_s] = combo_rr * prob_matrix_mono[s][next_s]
 
     # diagonal elements are calculated to make sure the sum of each row is 1
