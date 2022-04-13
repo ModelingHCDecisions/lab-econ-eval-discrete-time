@@ -160,7 +160,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         color='blue'
     )
 
-    # do CEA
+    # do cost-effectiveness analysis
     # (the first strategy in the list of strategies is assumed to be the 'Base' strategy)
     CEA = Econ.CEA(
         strategies=[mono_therapy_strategy, combo_therapy_strategy],
@@ -186,14 +186,14 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         icer_digits=2,
         file_name='CETable.csv')
 
-    # CBA
-    NBA = Econ.CBA(
+    # do cost-benefit analysis
+    CBA = Econ.CBA(
         strategies=[mono_therapy_strategy, combo_therapy_strategy],
         wtp_range=[0, 50000],
         if_paired=False
     )
     # show the net monetary benefit figure
-    NBA.plot_incremental_nmbs(
+    CBA.plot_incremental_nmbs(
         title='Cost-Benefit Analysis',
         x_label='Willingness-to-pay per QALY ($)',
         y_label='Incremental Net Monetary Benefit ($)',
