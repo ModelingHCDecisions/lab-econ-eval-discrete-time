@@ -1,8 +1,7 @@
 import InputData as D
-import ParameterClasses as P
 import MarkovModelClasses as Cls
+import ParameterClasses as P
 import Support as Support
-
 
 # simulating mono therapy
 # create a cohort
@@ -26,7 +25,7 @@ Support.print_outcomes(sim_outcomes=cohort_mono.cohortOutcomes,
 Support.print_outcomes(sim_outcomes=cohort_combo.cohortOutcomes,
                        therapy_name=P.Therapies.COMBO)
 
-# draw survival curves and histograms
+# plot survival curves and histograms
 Support.plot_survival_curves_and_histograms(sim_outcomes_mono=cohort_mono.cohortOutcomes,
                                             sim_outcomes_combo=cohort_combo.cohortOutcomes)
 
