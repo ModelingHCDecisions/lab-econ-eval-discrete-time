@@ -3,7 +3,7 @@ import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
 import deampy.statistics as stat
 
-import InputData as D
+import EconEvalInputData as D
 
 
 def print_outcomes(sim_outcomes, therapy_name):

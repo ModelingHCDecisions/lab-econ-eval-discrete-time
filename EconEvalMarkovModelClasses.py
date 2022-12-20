@@ -4,7 +4,7 @@ import numpy as np
 from deampy.markov import MarkovJumpProcess
 from deampy.plots.sample_paths import PrevalencePathBatchUpdate
 
-from InputData import HealthStates
+from EconEvalInputData import HealthStates
 
 
 class Patient:

@@ -2,7 +2,7 @@ from enum import Enum
 
 import numpy as np
 
-import InputData as Data
+import EconEvalInputData as Data
 
 
 class Therapies(Enum):

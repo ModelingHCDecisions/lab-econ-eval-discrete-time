@@ -1,9 +1,9 @@
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
 
-import InputData as D
-import MarkovModelClasses as Cls
-import ParameterClasses as P
+import EconEvalInputData as D
+import EconEvalMarkovModelClasses as Cls
+import EconEvalParamClasses as P
 import Support as Support
 
 # selected therapy

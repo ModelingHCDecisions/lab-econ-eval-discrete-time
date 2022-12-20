@@ -1,6 +1,6 @@
-import InputData as D
-import MarkovModelClasses as Cls
-import ParameterClasses as P
+import EconEvalInputData as D
+import EconEvalMarkovModelClasses as Cls
+import EconEvalParamClasses as P
 import Support as Support
 
 # simulating mono therapy
