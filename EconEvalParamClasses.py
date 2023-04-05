@@ -91,9 +91,10 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
     return matrix_combo
 
 
-# # tests
-# matrix_mono = get_prob_matrix_mono(Data.TRANS_MATRIX)
-# matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
-#
-# print(matrix_mono)
-# print(matrix_combo)
+# tests
+if __name__ == '__main__':
+    matrix_mono = get_prob_matrix_mono(Data.TRANS_MATRIX)
+    matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
+
+    print(matrix_mono)
+    print(matrix_combo)
