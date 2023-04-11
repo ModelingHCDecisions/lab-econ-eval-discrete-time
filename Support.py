@@ -194,7 +194,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     CBA.plot_marginal_nmb_lines(
         title='Cost-Benefit Analysis',
         x_label='Willingness-to-pay per QALY ($)',
-        y_label='Incremental Net Monetary Benefit ($)',
+        y_label='Marginal Net Monetary Benefit ($)',
         interval_type='c',
         show_legend=True,
         figure_size=(6, 5)
