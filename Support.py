@@ -186,13 +186,13 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         file_name='CETable.csv')
 
     # CBA
-    NBA = econ.CBA(
+    CBA = econ.CBA(
         strategies=[mono_therapy_strategy, combo_therapy_strategy],
         wtp_range=[0, 50000],
         if_paired=False
     )
     # show the net monetary benefit figure
-    NBA.plot_incremental_nmbs(
+    CBA.plot_incremental_nmbs(
         title='Cost-Benefit Analysis',
         x_label='Willingness-to-pay per QALY ($)',
         y_label='Incremental Net Monetary Benefit ($)',
