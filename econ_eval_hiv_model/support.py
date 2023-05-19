@@ -67,7 +67,8 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
         x_label='Simulation time step (year)',
         y_label='Number of alive patients',
         legends=['Mono Therapy', 'Combination Therapy'],
-        color_codes=['blue', 'green']
+        color_codes=['blue', 'green'],
+        file_name='figs/sample_paths.png'
     )
 
     # histograms of survival times
@@ -85,7 +86,8 @@ def plot_survival_curves_and_histograms(sim_outcomes_mono, sim_outcomes_combo):
         bin_width=1,
         legends=['Mono Therapy', 'Combination Therapy'],
         color_codes=['blue', 'green'],
-        transparency=0.5
+        transparency=0.5,
+        file_name='figs/surival_times.png'
     )
 
 
@@ -172,7 +174,8 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         title='Cost-Effectiveness Analysis',
         x_label='Additional QALYs',
         y_label='Additional Cost',
-        interval_type='c'  # to show confidence intervals for cost and effect of each strategy
+        interval_type='c',  # to show confidence intervals for cost and effect of each strategy
+        file_name='figs/cea.png'
     )
 
     # report the CE table
@@ -197,5 +200,6 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         y_label='Marginal Net Monetary Benefit ($)',
         interval_type='c',
         show_legend=True,
-        figure_size=(6, 5)
+        figure_size=(6, 5),
+        file_name='figs/nmb.png'
     )

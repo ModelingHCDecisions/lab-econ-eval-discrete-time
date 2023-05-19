@@ -1,4 +1,5 @@
-import Support as Support
+import econ_eval_hiv_model.Support as Support
+
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
 import econ_eval_hiv_model.input_data as data
