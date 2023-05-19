@@ -2,7 +2,7 @@ import deampy.econ_eval as econ
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
 import deampy.statistics as stat
-import econ_eval_hiv_model.input_data as data
+import hiv_model_econ_eval.input_data as data
 
 
 def print_outcomes(sim_outcomes, therapy_name):

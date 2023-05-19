@@ -4,7 +4,7 @@ import deampy.econ_eval as econ
 import deampy.statistics as stat
 from deampy.markov import MarkovJumpProcess
 from deampy.plots.sample_paths import PrevalencePathBatchUpdate
-from econ_eval_hiv_model.input_data import HealthStates
+from hiv_model_econ_eval.input_data import HealthStates
 
 
 class Patient:

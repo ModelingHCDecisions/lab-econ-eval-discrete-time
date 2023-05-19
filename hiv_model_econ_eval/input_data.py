@@ -44,5 +44,6 @@ Lamivudine_COST = 2086.0
 
 # treatment relative risk
 TREATMENT_RR = 0.509
+TREATMENT_RR_CI = [0.365, 0.71]   # confidence interval of the treatment relative risk
 
 

@@ -1,10 +1,10 @@
-import econ_eval_hiv_model.Support as Support
+import hiv_model_econ_eval.Support as Support
 
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
-import econ_eval_hiv_model.input_data as data
-import econ_eval_hiv_model.model_classes as model
-import econ_eval_hiv_model.param_classes as param
+import hiv_model_econ_eval.input_data as data
+import hiv_model_econ_eval.model_classes as model
+import hiv_model_econ_eval.param_classes as param
 
 # selected therapy
 therapy = param.Therapies.MONO

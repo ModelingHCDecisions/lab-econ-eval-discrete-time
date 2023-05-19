@@ -2,7 +2,7 @@ from enum import Enum
 
 import numpy as np
 
-import econ_eval_hiv_model.input_data as data
+import hiv_model_econ_eval.input_data as data
 
 
 class Therapies(Enum):
@@ -93,8 +93,8 @@ def get_prob_matrix_combo(prob_matrix_mono, combo_rr):
 
 # tests
 if __name__ == '__main__':
-    matrix_mono = get_prob_matrix_mono(Data.TRANS_MATRIX)
-    matrix_combo = get_prob_matrix_combo(matrix_mono, Data.TREATMENT_RR)
+    matrix_mono = get_prob_matrix_mono(data.TRANS_MATRIX)
+    matrix_combo = get_prob_matrix_combo(matrix_mono, data.TREATMENT_RR)
 
     print(matrix_mono)
     print(matrix_combo)
