@@ -2,7 +2,7 @@ from enum import Enum
 
 import numpy as np
 
-import EconEvalInputData as Data
+import econ_eval_hiv_model.input_data as data
 
 
 class Therapies(Enum):
@@ -18,13 +18,13 @@ class Parameters:
         self.therapy = therapy
 
         # initial health state
-        self.initialHealthState = Data.HealthStates.CD4_200to500
+        self.initialHealthState = data.HealthStates.CD4_200to500
 
         # annual treatment cost
         if self.therapy == Therapies.MONO:
-            self.annualTreatmentCost = Data.Zidovudine_COST
+            self.annualTreatmentCost = data.Zidovudine_COST
         else:
-            self.annualTreatmentCost = Data.Zidovudine_COST + Data.Lamivudine_COST
+            self.annualTreatmentCost = data.Zidovudine_COST + data.Lamivudine_COST
 
         # transition probability matrix of the selected therapy
         self.probMatrix = []
@@ -32,20 +32,20 @@ class Parameters:
         # calculate transition probabilities between hiv states
         if self.therapy == Therapies.MONO:
             # calculate transition probability matrix for the mono therapy
-            self.probMatrix = get_prob_matrix_mono(trans_matrix=Data.TRANS_MATRIX)
+            self.probMatrix = get_prob_matrix_mono(trans_matrix=data.TRANS_MATRIX)
 
         elif self.therapy == Therapies.COMBO:
             # calculate transition probability matrix for the combination therapy
             self.probMatrix = get_prob_matrix_combo(
-                prob_matrix_mono=get_prob_matrix_mono(trans_matrix=Data.TRANS_MATRIX),
-                combo_rr=Data.TREATMENT_RR)
+                prob_matrix_mono=get_prob_matrix_mono(trans_matrix=data.TRANS_MATRIX),
+                combo_rr=data.TREATMENT_RR)
 
         # annual state costs and utilities
-        self.annualStateCosts = Data.ANNUAL_STATE_COST
-        self.annualStateUtilities = Data.ANNUAL_STATE_UTILITY
+        self.annualStateCosts = data.ANNUAL_STATE_COST
+        self.annualStateUtilities = data.ANNUAL_STATE_UTILITY
 
         # discount rate
-        self.discountRate = Data.DISCOUNT
+        self.discountRate = data.DISCOUNT
 
 
 def get_prob_matrix_mono(trans_matrix):

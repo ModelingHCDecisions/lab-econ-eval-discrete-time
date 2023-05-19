@@ -1,21 +1,20 @@
+import Support as Support
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
-
-import EconEvalInputData as D
-import EconEvalMarkovModelClasses as Cls
-import EconEvalParamClasses as P
-import Support as Support
+import econ_eval_hiv_model.input_data as data
+import econ_eval_hiv_model.model_classes as model
+import econ_eval_hiv_model.param_classes as param
 
 # selected therapy
-therapy = P.Therapies.MONO
+therapy = param.Therapies.MONO
 
 # create a cohort
-myCohort = Cls.Cohort(id=1,
-                      pop_size=D.POP_SIZE,
-                      parameters=P.Parameters(therapy=therapy))
+myCohort = model.Cohort(id=1,
+                        pop_size=data.POP_SIZE,
+                        parameters=param.Parameters(therapy=therapy))
 
 # simulate the cohort over the specified time steps
-myCohort.simulate(n_time_steps=D.SIM_TIME_STEPS)
+myCohort.simulate(n_time_steps=data.SIM_TIME_STEPS)
 
 # plot the sample path (survival curve)
 path.plot_sample_path(

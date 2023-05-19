@@ -1,8 +1,8 @@
-import EconEvalInputData as D
 import deampy.econ_eval as econ
 import deampy.plots.histogram as hist
 import deampy.plots.sample_paths as path
 import deampy.statistics as stat
+import econ_eval_hiv_model.input_data as data
 
 
 def print_outcomes(sim_outcomes, therapy_name):
@@ -13,37 +13,37 @@ def print_outcomes(sim_outcomes, therapy_name):
     # mean and confidence interval of patient survival time
     survival_mean_CI_text = sim_outcomes.statSurvivalTime\
         .get_formatted_mean_and_interval(interval_type='c',
-                                         alpha=D.ALPHA,
+                                         alpha=data.ALPHA,
                                          deci=2)
 
     # mean and confidence interval text of time to AIDS
     time_to_HIV_death_CI_text = sim_outcomes.statTimeToAIDS\
         .get_formatted_mean_and_interval(interval_type='c',
-                                         alpha=D.ALPHA,
+                                         alpha=data.ALPHA,
                                          deci=2)
 
     # mean and confidence interval text of discounted total cost
     cost_mean_CI_text = sim_outcomes.statCost\
         .get_formatted_mean_and_interval(interval_type='c',
-                                         alpha=D.ALPHA,
+                                         alpha=data.ALPHA,
                                          deci=0,
                                          form=',')
 
     # mean and confidence interval text of discounted total utility
     utility_mean_CI_text = sim_outcomes.statUtility\
         .get_formatted_mean_and_interval(interval_type='c',
-                                         alpha=D.ALPHA,
+                                         alpha=data.ALPHA,
                                          deci=2)
 
     # print outcomes
     print(therapy_name)
-    print("  Estimate of mean survival time and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    print("  Estimate of mean survival time and {:.{prec}%} confidence interval:".format(1 - data.ALPHA, prec=0),
           survival_mean_CI_text)
-    print("  Estimate of mean time to AIDS and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    print("  Estimate of mean time to AIDS and {:.{prec}%} confidence interval:".format(1 - data.ALPHA, prec=0),
           time_to_HIV_death_CI_text)
-    print("  Estimate of discounted cost and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    print("  Estimate of discounted cost and {:.{prec}%} confidence interval:".format(1 - data.ALPHA, prec=0),
           cost_mean_CI_text)
-    print("  Estimate of discounted utility and {:.{prec}%} confidence interval:".format(1 - D.ALPHA, prec=0),
+    print("  Estimate of discounted utility and {:.{prec}%} confidence interval:".format(1 - data.ALPHA, prec=0),
           utility_mean_CI_text)
     print("")
 
@@ -104,10 +104,10 @@ def print_comparative_outcomes(sim_outcomes_mono, sim_outcomes_combo):
 
     # estimate and CI
     estimate_CI = increase_survival_time.get_formatted_mean_and_interval(interval_type='c',
-                                                                         alpha=D.ALPHA,
+                                                                         alpha=data.ALPHA,
                                                                          deci=2)
     print("Increase in mean survival time and {:.{prec}%} confidence interval:"
-          .format(1 - D.ALPHA, prec=0),
+          .format(1 - data.ALPHA, prec=0),
           estimate_CI)
 
     # increase in mean discounted cost under combination therapy with respect to mono therapy
@@ -118,11 +118,11 @@ def print_comparative_outcomes(sim_outcomes_mono, sim_outcomes_combo):
 
     # estimate and CI
     estimate_CI = increase_discounted_cost.get_formatted_mean_and_interval(interval_type='c',
-                                                                           alpha=D.ALPHA,
+                                                                           alpha=data.ALPHA,
                                                                            deci=2,
                                                                            form=',')
     print("Increase in mean discounted cost and {:.{prec}%} confidence interval:"
-          .format(1 - D.ALPHA, prec=0),
+          .format(1 - data.ALPHA, prec=0),
           estimate_CI)
 
     # increase in mean discounted utility under combination therapy with respect to mono therapy
@@ -133,10 +133,10 @@ def print_comparative_outcomes(sim_outcomes_mono, sim_outcomes_combo):
 
     # estimate and CI
     estimate_CI = increase_discounted_utility.get_formatted_mean_and_interval(interval_type='c',
-                                                                              alpha=D.ALPHA,
+                                                                              alpha=data.ALPHA,
                                                                               deci=2)
     print("Increase in mean discounted utility and {:.{prec}%} confidence interval:"
-          .format(1 - D.ALPHA, prec=0),
+          .format(1 - data.ALPHA, prec=0),
           estimate_CI)
 
 
@@ -178,7 +178,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     # report the CE table
     CEA.build_CE_table(
         interval_type='c',
-        alpha=D.ALPHA,
+        alpha=data.ALPHA,
         cost_digits=0,
         effect_digits=2,
         icer_digits=2,

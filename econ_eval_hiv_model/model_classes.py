@@ -1,10 +1,10 @@
+import numpy as np
+
 import deampy.econ_eval as econ
 import deampy.statistics as stat
-import numpy as np
 from deampy.markov import MarkovJumpProcess
 from deampy.plots.sample_paths import PrevalencePathBatchUpdate
-
-from EconEvalInputData import HealthStates
+from econ_eval_hiv_model.input_data import HealthStates
 
 
 class Patient:
