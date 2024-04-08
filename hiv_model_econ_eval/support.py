@@ -134,25 +134,12 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
     """
 
     # define two strategies
-    mono_therapy_strategy = econ.Strategy(
-        name='Mono Therapy',
-        cost_obs=sim_outcomes_mono.costs,
-        effect_obs=sim_outcomes_mono.utilities,
-        color='green'
-    )
-    combo_therapy_strategy = econ.Strategy(
-        name='Combination Therapy',
-        cost_obs=sim_outcomes_combo.costs,
-        effect_obs=sim_outcomes_combo.utilities,
-        color='blue'
-    )
+    mono_therapy_strategy =
+    combo_therapy_strategy =
 
     # do CEA
     # (the first strategy in the list of strategies is assumed to be the 'Base' strategy)
-    CEA = econ.CEA(
-        strategies=[mono_therapy_strategy, combo_therapy_strategy],
-        if_paired=False
-    )
+
 
     # plot cost-effectiveness figure
     CEA.plot_CE_plane(
@@ -173,11 +160,7 @@ def report_CEA_CBA(sim_outcomes_mono, sim_outcomes_combo):
         file_name='CETable.csv')
 
     # CBA
-    CBA = econ.CBA(
-        strategies=[mono_therapy_strategy, combo_therapy_strategy],
-        wtp_range=[0, 50000],
-        if_paired=False
-    )
+
     # show the net monetary benefit figure
     CBA.plot_marginal_nmb_lines(
         title='Cost-Benefit Analysis',
